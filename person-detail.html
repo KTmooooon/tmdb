@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>person-detail</title>
+    <link rel="stylesheet" href="./resources/css/nav.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAd8DkrEcyReCItfy4z5LZpUrB3p0wwK40",
+            authDomain: "tmdb2-b5243.firebaseapp.com",
+            projectId: "tmdb2-b5243",
+            storageBucket: "tmdb2-b5243.appspot.com",
+            messagingSenderId: "342562486139",
+            appId: "1:342562486139:web:a8eb35bbdea075260befde",
+            measurementId: "G-HF7WXL04JR"
+        };
+
+
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            margin: auto;
+            border: 0px solid black;
+        }
+
+        .container {
+            width: 1400px;
+            height: 1500px;
+            margin: auto;
+            display: flex;
+        }
+
+        .search-cont {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-bottom: 1px solid rgba(128, 128, 128, 0.724);
+        }
+
+        .search-box {
+            width: 1400px;
+            height: 100%;
+            margin: auto;
+            display: flex;
+        }
+
+        .icon-box {
+            height: 100%;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+        }
+
+        #search {
+            height: 100%;
+            width: 1350px;
+            font-size: 20px;
+            border: none;
+        }
+
+        .cont-left {
+            width: 23%;
+            height: 1500px;
+        }
+
+
+        #left-profile {
+            width: 85%;
+            height: 400px;
+            margin-top: 15px;
+            margin-left: 22px;
+        }
+
+        .link-box {
+            width: 85%;
+            height: 70px;
+            margin-top: 10px;
+            margin-left: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        #instaIcon {
+            width: 25%;
+            height: 60px;
+            cursor: pointer;
+        }
+
+        #twitIcon {
+            cursor: pointer;
+            width: 20%;
+            height: 50px;
+        }
+
+        .cont-right {
+            width: 77%;
+            height: 1500px;
+        }
+
+        .pf-name {
+            margin-top: 15px;
+            width: 95%;
+            height: 50px;
+            font-size: 30px;
+            font-weight: bold;
+            margin-left: 3%;
+            display: flex;
+            align-items: center;
+        }
+
+        .pf-birth {
+            margin-top: 10px;
+            width: 90%;
+            margin-left: 3%;
+            font-size: 17px;
+        }
+
+        .pf-bio {
+            margin-top: 10px;
+            width: 90%;
+            height: 250px;
+            margin-left: 3%;
+            font-size: 19px;
+            overflow-x: scroll;
+        }
+
+        .pf-credits {
+            overflow-x: scroll;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            width: 90%;
+            height: 250px;
+            margin-left: 3%;
+        }
+
+        #p1 {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            width: 90%;
+            margin-left: 3%;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .credits-box {
+            width: 15%;
+            height: 90%;
+            margin: 3px;
+            border: 1px solid rgba(128, 128, 128, 0.575);
+            border-radius: 10px;
+        }
+
+        .credits-img {
+            width: 100%;
+            height: 85%;
+            cursor: pointer;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .credits-name {
+            font-size: 12px;
+            cursor: pointer;
+            width: 100%;
+            height: 12%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            overflow: hidden;
+        }
+
+        .credits-name:hover {
+            color: rgb(8, 164, 164);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navigation">
+        <div class="nav">
+            <div class="nav-left">
+                <img id="navLogo"
+                    src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
+                    alt="">
+                <div class="nav-movie">영화DB</div>
+                <div class="nav-person">인물DB</div>
+            </div>
+            <div class="nav-right">
+                <button class="nav-button"><svg id="bt1" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                        <path
+                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                    </svg></button>
+                <button class="nav-button"><svg id="bt2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-translate" viewBox="0 0 16 16">
+                        <path
+                            d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z" />
+                        <path
+                            d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31" />
+                    </svg></button>
+                <button class="nav-button"><svg id="bt3" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-bell" viewBox="0 0 16 16">
+                        <path
+                            d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6" />
+                    </svg></button>
+                <button class="nav-button"><svg id="bt4" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                        <path fill-rule="evenodd"
+                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                    </svg></button>
+                <button class="nav-button"><svg id="bt5" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg></button>
+            </div>
+        </div>
+    </div>
+    <div class="search-cont">
+        <div class="search-box">
+            <div class="icon-box">
+                <svg id="sIcon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                    class="bi bi-search" viewBox="0 0 16 16">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                </svg>
+            </div>
+            <input id="search" type="text" placeholder="...">
+        </div>
+    </div>
+    <div class="container">
+        <div class="cont-left">
+            <img id="left-profile" src="" alt="">
+            <div class="link-box">
+                <img id="instaIcon" src="./resources/images/insta.png" alt="">
+                <img id="twitIcon" src="./resources/images/twitter.png" alt="">
+            </div>
+        </div>
+        <div class="cont-right">
+            <div class="pf-name"></div>
+            <div class="pf-birth"></div>
+            <div class="pf-bio"></div>
+            <p id="p1">작품</p>
+            <div class="pf-credits">
+                <div class="credits-box">
+                    <img id="credits-img" src="" alt="">
+                    <p id="credits-name"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const db = firebase.firestore();
+        let urlSearch = new URLSearchParams(location.search);
+        let person_id = urlSearch.get('id');
+
+        let docRef = db.collection("personDB").doc('id:' + person_id)
+
+
+        docRef.get().then((result) => {
+
+            document.getElementsByClassName('pf-credits')[0].innerHTML = '';
+            let v_data = result.data();
+            if (!v_data) {
+                f_notInFirebase(person_id)
+                f_notInFirebaseMoviea(person_id)
+                f_notInFirebaseSNS(person_id)
+            } else {
+                document.getElementsByClassName('pf-name')[0].innerHTML = v_data['name'];
+                document.getElementsByClassName('pf-birth')[0].innerHTML = v_data['gender'] + ", (" + v_data['birthday'] + ")";
+                document.getElementsByClassName('pf-bio')[0].innerHTML = v_data['biography'];
+                document.getElementById('left-profile').src = 'http://image.tmdb.org/t/p/w500' + v_data['profile_path']
+                document.getElementById('instaIcon').addEventListener('click', () => {
+                    if (v_data['instagram_id'] == 'https://www.instagram.com/null') {
+                        location.href = location.href;
+                    } else {
+                        window.open(v_data['instagram_id'])
+                    }
+                })
+                document.getElementById('twitIcon').addEventListener('click', () => {
+                    if (v_data['twitter_id'] == 'https://x.com/null') {
+                        location.href = location.href;
+                    } else {
+                        window.open(v_data['twitter_id'])
+                    }
+                })
+                for (let i = 0; i < v_data['credit_poster_path'].length; i++) {
+                    let v_alpha = '<div class="credits-box"><img class="credits-img" src="'
+                    v_alpha += 'http://image.tmdb.org/t/p/w500' + v_data['credit_poster_path'][i]
+                    v_alpha += '" alt=""><p class="credits-name">'
+                    v_alpha += v_data['credit_title'][i]
+                    v_alpha += '</p></div>'
+                    document.getElementsByClassName('pf-credits')[0].innerHTML += v_alpha
+
+
+                }
+                for (let i = 0; i < v_data['credit_poster_path'].length; i++) {
+                    document.getElementsByClassName('credits-img')[i].addEventListener('click', () => {
+                        location.href = 'http://127.0.0.1:5500/movie-detail.html' + '?id=' + v_data['credit_id'][i];
+                    })
+                    document.getElementsByClassName('credits-name')[i].addEventListener('click', () => {
+                        location.href = 'http://127.0.0.1:5500/movie-detail.html' + '?id=' + v_data['credit_id'][i];
+                    })
+                }
+
+                if (!v_data) {
+                    alert('데이터 없음')
+                }
+            }
+
+
+        }).catch((error) => {
+            console.log(error);
+        });
+
+        let v_search = document.querySelector('#search')
+
+
+        v_search.addEventListener('keyup', () => {
+            if (event.keyCode == 13) {
+                if (v_search.value.length) {
+                    location.href = 'http://127.0.0.1:5500/search-page.html' + '?query=' + v_search.value;
+                }
+            }
+        })
+
+
+        function f_notInFirebase(p_id) {
+            let v_url = 'https://api.themoviedb.org/3/person/' + p_id + '?language=ko-KR'
+
+            const settings = {
+                async: true,
+                crossDomain: true,
+                url: v_url,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNDQ2ZmNiZjNhYjhjNmFkMzcyNWE0NmRiOGFhYjg2OCIsIm5iZiI6MTcyNDAzOTAxNC4wNDg3MDQsInN1YiI6IjY2YzJiNzUxYTk5MWIxZGE3NWRhMGVkYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VRpFNmnB0zQEoJi4R5E_iDXZcWd53wwyDAHqvtbd5i4'
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response)
+                document.getElementById('left-profile').src = 'http://image.tmdb.org/t/p/w500' + response['profile_path']
+                document.getElementsByClassName('pf-name')[0].innerHTML = response['name'];
+                let gen = ""
+                if (response['gender'] == 1) {
+                    gen = "여성"
+                } else if(response['gender'] == 2){
+                    gen = "남성"
+                }else{
+                    gen = "미상"
+                }
+                document.getElementsByClassName('pf-birth')[0].innerHTML = gen + ", (" + response['birthday'] + ")";
+                document.getElementsByClassName('pf-bio')[0].innerHTML = response['biography'];
+            });
+        }
+
+        function f_notInFirebaseSNS(p_id) {
+            let v_url = 'https://api.themoviedb.org/3/person/'+ p_id +'/external_ids'
+
+            const settings = {
+                async: true,
+                crossDomain: true,
+                url: v_url,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNDQ2ZmNiZjNhYjhjNmFkMzcyNWE0NmRiOGFhYjg2OCIsIm5iZiI6MTcyNDAzOTAxNC4wNDg3MDQsInN1YiI6IjY2YzJiNzUxYTk5MWIxZGE3NWRhMGVkYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VRpFNmnB0zQEoJi4R5E_iDXZcWd53wwyDAHqvtbd5i4'
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response)
+                document.getElementById('instaIcon').addEventListener('click', () => {
+                    if (response['instagram_id'] == null) {
+                        location.href = location.href;
+                    } else {
+                        window.open('https://www.instagram.com/' + response['instagram_id'])
+                    }
+                })
+                document.getElementById('twitIcon').addEventListener('click', () => {
+                    if (response['twitter_id'] == null) {
+                        location.href = location.href;
+                    } else {
+                        window.open('https://x.com/' + response['twitter_id'])
+                    }
+                })
+            });
+        }
+
+        function f_notInFirebaseMoviea(p_id) {
+            let v_url = 'https://api.themoviedb.org/3/person/' + p_id + '/movie_credits?language=ko-KR'
+            const settings = {
+                async: true,
+                crossDomain: true,
+                url: v_url,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNDQ2ZmNiZjNhYjhjNmFkMzcyNWE0NmRiOGFhYjg2OCIsIm5iZiI6MTcyNDAzOTAxNC4wNDg3MDQsInN1YiI6IjY2YzJiNzUxYTk5MWIxZGE3NWRhMGVkYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VRpFNmnB0zQEoJi4R5E_iDXZcWd53wwyDAHqvtbd5i4'
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response['cast'])
+                if (response['cast'].length < 10) {
+                    for (let i = 0; i < response['cast'].length; i++) {
+                        let v_alpha = '<div class="credits-box"><img class="credits-img" src="'
+                        v_alpha += 'http://image.tmdb.org/t/p/w500' + response['cast'][i]['poster_path']
+                        v_alpha += '" alt=""><p class="credits-name">'
+                        v_alpha += response['cast'][i]['title']
+                        v_alpha += '</p></div>'
+                        document.getElementsByClassName('pf-credits')[0].innerHTML += v_alpha
+
+
+                    }
+                    for (let i = 0; i < response['cast'].length; i++) { 
+                        document.getElementsByClassName('credits-img')[i].addEventListener('click', () => {
+                            location.href = 'http://127.0.0.1:5500/movie-detail.html' + '?id=' + response['cast'][i]['id'];
+                        })
+                        document.getElementsByClassName('credits-name')[i].addEventListener('click', () => {
+                            location.href = 'http://127.0.0.1:5500/movie-detail.html' + '?id=' + response['cast'][i]['id'];
+                        })
+                    }
+                }else{
+                    for (let i = 0; i < 10; i++) {
+                        let v_alpha = '<div class="credits-box"><img class="credits-img" src="'
+                        v_alpha += 'http://image.tmdb.org/t/p/w500' + response['cast'][i]['poster_path']
+                        v_alpha += '" alt=""><p class="credits-name">'
+                        v_alpha += response['cast'][i]['title']
+                        v_alpha += '</p></div>'
+                        document.getElementsByClassName('pf-credits')[0].innerHTML += v_alpha
+
+
+                    }
+                    for (let i = 0; i < 10; i++) { 
+                        document.getElementsByClassName('credits-img')[i].addEventListener('click', () => {
+                            location.href = 'http://127.0.0.1:5500/movie-detail.html' + '?id=' + response['cast'][i]['id'];
+                        })
+                        document.getElementsByClassName('credits-name')[i].addEventListener('click', () => {
+                            location.href = 'http://127.0.0.1:5500/movie-detail.html' + '?id=' + response['cast'][i]['id'];
+                        })
+                    }
+                }
+            });
+        }
+
+
+    </script>
+
+    <script src="./resources/js/navScript.js"></script>
+
+</body>
+
+</html>

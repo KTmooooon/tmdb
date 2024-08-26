@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>search</title>
+
+    <script src="./resources/js/navScript.js"></script>
+    <link rel="stylesheet" href="./resources/css/nav.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0px solid black;
+        }
+
+        .container {
+            width: 1400px;
+            margin: auto;
+            display: flex;
+            margin-bottom: 50px;
+        }
+
+        .search-cont {
+            width: 100%;
+            height: 50px;
+            border: none;
+            border-bottom: 1px solid rgba(128, 128, 128, 0.724);
+        }
+
+        .search-box {
+            width: 1400px;
+            height: 100%;
+            margin: auto;
+            display: flex;
+        }
+
+        .icon-box {
+            height: 100%;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+        }
+
+        #search {
+            height: 100%;
+            width: 1350px;
+            font-size: 20px;
+            border: none;
+        }
+
+        #sIcon {
+            border: none;
+        }
+
+        .cont-left {
+            width: 23%;
+        }
+
+        .cont-right {
+            width: 77%;
+        }
+
+        .index-box {
+            width: 90%;
+            height: 225px;
+            margin: auto;
+            margin-top: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.345);
+        }
+
+        .ib-top {
+            border-top-right-radius: 20px;
+            border-top-left-radius: 20px;
+            width: 100%;
+            height: 70px;
+            background-color: #01B4E4;
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+
+        .ib-bottom {
+            width: 100%;
+            height: 150px;
+            display: flex;
+
+        }
+
+        .ib-left {
+            width: 80%;
+            height: 100%;
+        }
+
+        .ib-right {
+            width: 20%;
+            height: 100%;
+        }
+
+        .ib-index {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+
+
+        #ibButton1 {
+            margin-left: 20px;
+            font-size: 17px;
+        }
+
+        #ibButton2 {
+            margin-left: 20px;
+            font-size: 17px;
+        }
+
+        #ibButton3 {
+            margin-left: 20px;
+            font-size: 17px;
+        }
+
+        .ib-ea {
+            width: 100%;
+            height: calc(100% / 3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+
+
+        #ea1 {
+            width: 70%;
+            height: 70%;
+            background-color: #EBEBEB;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            border: none;
+        }
+
+        #ea2 {
+            width: 70%;
+            height: 70%;
+            background-color: #EBEBEB;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            border: none;
+        }
+
+        #ea3 {
+            width: 70%;
+            height: 70%;
+            background-color: #EBEBEB;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            border: none;
+        }
+
+        .item-box {
+            width: 90%;
+            height: 150px;
+            margin-left: 15px;
+            margin-bottom: 15px;
+            border-radius: 15px;
+            display: flex;
+        }
+
+        #itemImg {
+            width: 15%;
+            height: 100%;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .item-detail {
+            width: 80%;
+            height: 100%;
+        }
+
+        .item-title {
+            width: 100%;
+            height: 30%;
+            margin-left: 2%;
+            font-weight: bold;
+            font-size: 22px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .item-date {
+            width: 100%;
+            height: 20%;
+            margin-left: 2%;
+            font-size: 16px;
+            color: gray;
+            overflow: hidden;
+        }
+
+        .item-overview {
+            width: 100%;
+            height: 47%;
+            margin-left: 2%;
+            font-size: 16px;
+            font-style: oblique;
+            overflow-y: scroll;
+        }
+
+        .person-box {
+            height: 100px;
+            width: 90%;
+            margin: auto;
+            margin-top: 30px;
+            display: flex;
+        }
+
+        #personImg {
+            height: 100%;
+            width: 10%;
+        }
+
+        .person-philmo {
+            height: 100%;
+            width: 70%;
+        }
+
+        .person-name {
+            width: 100%;
+            height: 50%;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .person-detail {
+            width: 100%;
+            height: 40%;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+        }
+
+        .company-box {
+            width: 90%;
+            height: 50px;
+            margin-left: 15px;
+            border-bottom: 1px solid rgba(128, 128, 128, 0.63);
+        }
+
+        #companyName {
+            height: 50px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navigation">
+        <div class="nav">
+            <div class="nav-left">
+                <img id="navLogo"
+                    src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
+                    alt="">
+                <div class="nav-movie">영화DB</div>
+                <div class="nav-person">인물DB</div>
+            </div>
+            <div class="nav-right">
+                <button class="nav-button"><svg id="bt1" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                        <path
+                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                    </svg></button>
+                <button class="nav-button"><svg id="bt2" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-translate" viewBox="0 0 16 16">
+                        <path
+                            d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z" />
+                        <path
+                            d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31" />
+                    </svg></button>
+                <button class="nav-button"><svg id="bt3" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-bell" viewBox="0 0 16 16">
+                        <path
+                            d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6" />
+                    </svg></button>
+                <button class="nav-button"><svg id="bt4" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                        <path fill-rule="evenodd"
+                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+                    </svg></button>
+                <button class="nav-button"><svg id="bt5" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg></button>
+            </div>
+        </div>
+    </div>
+    <div class="search-cont">
+        <div class="search-box">
+            <div class="icon-box">
+                <svg id="sIcon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                    class="bi bi-search" viewBox="0 0 16 16">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                </svg>
+            </div>
+            <input id="search" type="text" placeholder="...">
+        </div>
+    </div>
+    <div class="container">
+        <div class="cont-left">
+            <div class="index-box">
+                <div class="ib-top">&nbsp&nbsp검색 결과</div>
+                <div class="ib-bottom">
+                    <div class="ib-left">
+                        <div class="ib-index">
+                            <span id="ibButton1">영화</span>
+                        </div>
+                        <div class="ib-index">
+                            <span id="ibButton2">인물</span>
+                        </div>
+                        <div class="ib-index">
+                            <span id="ibButton3">제작사</span>
+                        </div>
+                    </div>
+                    <div class="ib-right">
+                        <div class="ib-ea">
+                            <span id="ea1"></span>
+                        </div>
+                        <div class="ib-ea">
+                            <span id="ea2"></span>
+                        </div>
+                        <div class="ib-ea">
+                            <span id="ea3"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="cont-right">
+
+        </div>
+    </div>
+
+
+    <script>
+        let urlSearch = new URLSearchParams(location.search);
+        console.log(urlSearch.get('query'));
+        let searchValue = urlSearch.get('query');
+        let pageNo = 1;
+
+        let isMovie = true;
+
+
+        function f_eaPerson(searchValue) {
+
+            let v_url = 'https://api.themoviedb.org/3/search/person?query=' + searchValue + '&include_adult=false&language=ko-KR&page=1'
+
+            const settings = {
+                async: true,
+                crossDomain: true,
+                url: v_url,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNDQ2ZmNiZjNhYjhjNmFkMzcyNWE0NmRiOGFhYjg2OCIsIm5iZiI6MTcyNDAzOTAxNC4wNDg3MDQsInN1YiI6IjY2YzJiNzUxYTk5MWIxZGE3NWRhMGVkYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VRpFNmnB0zQEoJi4R5E_iDXZcWd53wwyDAHqvtbd5i4'
+                }
+            };
+            $.ajax(settings).done(function (response) {
+                document.getElementById('ea2').innerHTML = response['total_results'];
+            });
+        }
+        function f_eaCompany(searchValue) {
+            let v_url = 'https://api.themoviedb.org/3/search/company?query=' + searchValue + '&include_adult=false&language=ko-KR&page=1'
+
+            const settings = {
+                async: true,
+                crossDomain: true,
+                url: v_url,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNDQ2ZmNiZjNhYjhjNmFkMzcyNWE0NmRiOGFhYjg2OCIsIm5iZiI6MTcyNDAzOTAxNC4wNDg3MDQsInN1YiI6IjY2YzJiNzUxYTk5MWIxZGE3NWRhMGVkYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VRpFNmnB0zQEoJi4R5E_iDXZcWd53wwyDAHqvtbd5i4'
+                }
+            };
+            $.ajax(settings).done(function (response) {
+                document.getElementById('ea3').innerHTML = response['total_results'];
+            });
+        }
+
+        function f_searchresultMovie(searchValue, pageNo) {
+
+            let v_url = 'https://api.themoviedb.org/3/search/movie?query=' + searchValue + '&include_adult=true&language=ko-KR&page=' + pageNo
+
+            const settings = {
+                async: true,
+                crossDomain: true,
+                url: v_url,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNDQ2ZmNiZjNhYjhjNmFkMzcyNWE0NmRiOGFhYjg2OCIsIm5iZiI6MTcyNDAzOTAxNC4wNDg3MDQsInN1YiI6IjY2YzJiNzUxYTk5MWIxZGE3NWRhMGVkYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VRpFNmnB0zQEoJi4R5E_iDXZcWd53wwyDAHqvtbd5i4'
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                if (!isMovie) {
+                    return
+                }
+                let isExecuted = false;
+                aelIndex = 0;
+
+
+                document.getElementsByClassName('container')[0].style.overflowY = "visible"
+                document.getElementsByClassName('cont-right')[0].style.paddingTop = "30px"
+                console.log(response)
+                document.getElementById('ea1').innerHTML = response['total_results'];
+                if (pageNo == 1) {
+                    document.getElementsByClassName('cont-right')[0].innerHTML = ""
+                }
+                if (response['results'].length > 0) {
+                    if (response['results'].length >= 20) {
+                        for (let i = 0; i < 20; i++) {
+                            let v_alpha = '<div class="item-box"><img class="item-img" id="itemImg" src="'
+                            v_alpha += 'http://image.tmdb.org/t/p/w500'
+                            v_alpha += response['results'][i]['poster_path']
+                            v_alpha += '" alt=""><div class="item-detail"><div class="item-title">'
+                            v_alpha += response['results'][i]['title']
+                            v_alpha += '</div><div class="item-date">'
+                            v_alpha += response['results'][i]['release_date']
+                            v_alpha += '</div><div class="item-overview">'
+                            v_alpha += response['results'][i]['overview']
+                            v_alpha += '</div></div></div>'
+                            document.getElementsByClassName('cont-right')[0].innerHTML += v_alpha
+                        }
+                        for (let i = 20 * (pageNo - 1); i < 20 * pageNo; i++) {
+                            document.getElementsByClassName('item-img')[i].addEventListener('click', () => {
+                                location.href = 'http://127.0.0.1:5500/movie-detail.html' + '?id=' + response['results'][i + 40 - (20 * pageNo)]['id'];
+                            })
+                        }
+
+                    } else {
+                        for (let i = 0; i < response['results'].length; i++) {
+                            let v_alpha = '<div class="item-box"><img class="item-img" id="itemImg" src="'
+                            v_alpha += 'http://image.tmdb.org/t/p/w500'
+                            v_alpha += response['results'][i]['poster_path']
+                            v_alpha += '" alt=""><div class="item-detail"><div class="item-title">'
+                            v_alpha += response['results'][i]['title']
+                            v_alpha += '</div><div class="item-date">'
+                            v_alpha += response['results'][i]['release_date']
+                            v_alpha += '</div><div class="item-overview">'
+                            v_alpha += response['results'][i]['overview']
+                            v_alpha += '</div></div></div>'
+                            document.getElementsByClassName('cont-right')[0].innerHTML += v_alpha
+                        }
+                        // 함수가 돌아가는 시점 pageNo 랑 사용자가 이미지를 누를때 pageNo가 다름
+                        for (let i = 20 * (pageNo - 1); i < 20 * (pageNo - 1) + response['results'].length; i++) {
+                            document.getElementsByClassName('item-img')[i].addEventListener('click', () => {
+                                location.href = 'http://127.0.0.1:5500/movie-detail.html' + '?id=' + response['results'][i + 40 - (20 * pageNo)]['id'];
+                            })
+                        }
+
+                    }
+                    pageNo++;
+                } else {
+                    alert('페이지 끝입니다')
+                    isExecuted = true;
+                    return
+                }
+
+
+
+                console.log(document.body.scrollHeight)  // 함수가 한번 실행되며 값이 바뀜
+
+                // 무한스크롤?
+
+                if (isMovie) {
+                    window.addEventListener('scroll', function () {
+                        if (!isExecuted) {
+                            if (window.scrollY + window.innerHeight >= document.body.scrollHeight) {
+                                console.log(window.scrollY)
+                                console.log(window.innerHeight)
+                                console.log(document.body.scrollHeight)
+                                console.log(pageNo)
+                                f_searchresultMovie(searchValue, pageNo);
+                                isExecuted = true;
+                            }
+
+                        }
+                    });
+                }
+
+            });
+        }
+
+        // 뒤로가기 스크롤 위치 , 새로고침 스크롤 위치 초기화
+        // // DOMContentLoaded 새로고침? beforeunload 나가거나 새로고침?
+
+
+        // window.addEventListener('DOMContentLoaded', () => {
+        //     window.scrollTo(0, parseInt(sessionStorage.getItem('y')));
+        // })
+
+        // // popstate 뒤로가기 감지
+        // window.addEventListener('popstate', () => {
+        //     window.scrollTo(0, parseInt(sessionStorage.getItem('y')));
+        //     console.log(sessionStorage.getItem('y'))
+        // })
+
+        // // sessionStorage에 y값 
+        // window.addEventListener('beforeunload', () => {
+        //     sessionStorage.setItem('y', window.scrollY)
+        // })
+
+
+
+
+        function f_searchresultPerson(searchValue) {
+
+            let v_url = 'https://api.themoviedb.org/3/search/person?query=' + searchValue + '&include_adult=false&language=ko-KR&page=1'
+
+
+            const settings = {
+                async: true,
+                crossDomain: true,
+                url: v_url,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNDQ2ZmNiZjNhYjhjNmFkMzcyNWE0NmRiOGFhYjg2OCIsIm5iZiI6MTcyNDAzOTAxNC4wNDg3MDQsInN1YiI6IjY2YzJiNzUxYTk5MWIxZGE3NWRhMGVkYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VRpFNmnB0zQEoJi4R5E_iDXZcWd53wwyDAHqvtbd5i4'
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                document.getElementsByClassName('cont-right')[0].style.paddingTop = "0px"
+                console.log(response)
+                document.getElementById('ea2').innerHTML = response['total_results'];
+
+                document.getElementsByClassName('cont-right')[0].innerHTML = ""
+                console.log(document.body.scrollHeight)
+
+                for (let i = 0; i < 20; i++) {
+                    let v_beta = ""
+                    for (let k = 0; k < response['results'][i]['known_for'].length; k++) {
+                        v_beta += response['results'][i]['known_for'][k]['title'] + "; "
+                    }
+                    let v_alpha = '<div class="person-box"><img id="personImg" src="'
+                    v_alpha += 'http://image.tmdb.org/t/p/w500'
+                    v_alpha += response['results'][i]['profile_path']
+                    v_alpha += '" alt=""><div class="person-philmo"><div class="person-name">'
+                    v_alpha += response['results'][i]['name']
+                    v_alpha += '</div><div class="person-detail">'
+                    v_alpha += v_beta
+                    v_alpha += '</div></div></div>'
+                    document.getElementsByClassName('cont-right')[0].innerHTML += v_alpha
+                }
+                window.addEventListener('scroll', function () {
+
+                    if (window.scrollY + window.innerHeight >= document.body.scrollHeight) {
+                        console.log(window.scrollY)
+                        console.log(window.innerHeight)
+                        console.log(document.body.scrollHeight)
+                        console.log(pageNo)
+                        isExecuted = true;
+                    }
+
+
+                });
+
+            });
+        }
+
+
+        function f_searchresultCompany(searchValue) {
+            let v_url = 'https://api.themoviedb.org/3/search/company?query=' + searchValue + '&include_adult=false&language=ko-KR&page=1'
+
+
+            const settings = {
+                async: true,
+                crossDomain: true,
+                url: v_url,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNDQ2ZmNiZjNhYjhjNmFkMzcyNWE0NmRiOGFhYjg2OCIsIm5iZiI6MTcyNDAzOTAxNC4wNDg3MDQsInN1YiI6IjY2YzJiNzUxYTk5MWIxZGE3NWRhMGVkYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VRpFNmnB0zQEoJi4R5E_iDXZcWd53wwyDAHqvtbd5i4'
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                document.getElementsByClassName('container')[0].style.overflowY = "auto"
+                console.log(response)
+                document.getElementById('ea3').innerHTML = response['total_results'];
+
+                document.getElementsByClassName('cont-right')[0].innerHTML = ""
+
+                for (let i = 0; i < response['results'].length; i++) {
+                    let v_alpha = '<div class="company-box"><p id="companyName">'
+                    v_alpha += response['results'][i]['name']
+                    v_alpha += '</p></div>'
+                    document.getElementsByClassName('cont-right')[0].innerHTML += v_alpha
+                }
+
+                document.getElementsByClassName('cont-right')[0].style.paddingTop = "30px"
+            });
+        }
+
+        f_eaPerson(searchValue);
+        f_eaCompany(searchValue)
+        f_searchresultMovie(searchValue, pageNo);
+
+        document.getElementsByClassName('ib-index')[0].addEventListener('click', () => {
+            isMovie = true;
+            f_searchresultMovie(searchValue, 1);
+        })
+        document.getElementsByClassName('ib-index')[1].addEventListener('click', () => {
+            isMovie = false;
+            f_searchresultPerson(searchValue);
+        })
+        document.getElementsByClassName('ib-index')[2].addEventListener('click', () => {
+            isMovie = false;
+            f_searchresultCompany(searchValue);
+        })
+
+        let v_search = document.querySelector('#search')
+
+
+        v_search.addEventListener('keyup', () => {
+            if (event.keyCode == 13) {
+                if (v_search.value.length) {
+                    location.href = 'http://127.0.0.1:5500/search-page.html' + '?query=' + v_search.value;
+                }
+            }
+        })
+    </script>
+    <script src="./resources/js/navScript.js"></script>
+</body>
+
+</html>

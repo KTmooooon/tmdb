@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="./resources/css/nav.css">
+    <link rel="stylesheet" href="./resources/css/스타일.css">
+    <script src="./resources/js/1.모달내용변경후띄우기.js"></script>
+    <script src="./resources/js/1.오늘,이번주.js"></script>
+    <script src="./resources/js/1.예고편.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <div class="navigation">
+        <div class="nav">
+            <div class="nav-left">
+                <img id="navLogo" src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"alt="">
+                <div class="nav-movie">영화DB</div>
+                <div class="nav-person">인물DB</div>
+            </div>
+            <div class="nav-right">
+                <button class="nav-button"><svg id="bt1" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg></button>
+                <button class="nav-button"><svg id="bt2" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-translate" viewBox="0 0 16 16">
+                    <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z"/>
+                    <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31"/>
+                </svg></button>
+                <button class="nav-button"><svg id="bt3" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
+                </svg></button>
+                <button class="nav-button"><svg id="bt4" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                </svg></button>
+                <button class="nav-button"><svg id="bt5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg></button>
+            </div>
+        </div>
+    </div>
+    <div class="modal">
+        <div class="modal-box">
+            <div class="video-detail">
+                <span id="vd-1"></span>
+                <span id="vd-2"> X </span>
+            </div>
+            <iframe id="youTube" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="container">
+        <div class="search-box">
+            <div class="sb-top">
+                <span>환영합니다</span>
+                <span>수십만 개의 영화 및 인물을 발견하세요. 지금 살펴보세요.</span>
+            </div>
+            <div class="sb-bottom">
+                <div class="sb-bar">
+                    <input id="searchBar" type="text" placeholder="영화 검색..">
+                    <button id="searchBtn">검색</button>
+                </div>
+            </div>
+        </div>
+        <div class="trend-box">
+            <div class="tb-top">
+                <span class="tb-span1">트랜드</span>
+                <div id="tbBtn">
+                    <span id="todayBtn">오늘</span>
+                    <span id="weekBtn">이번주</span>
+                </div>
+            </div>
+            <div class="tb-bottom">
+                <!--  tb-movie 추가 -->
+            </div>
+        </div>
+        <div class="recent-box">
+            <div class="recent-top">
+                <span class="rc-span1">최신 예고편</span>
+                <div id="rcBtn">
+                    <!-- 액션 28, 코미디 35, 로맨스 10749, 어드밴쳐 12, 스릴러 53 -->
+                    <span class="rc-btn">액션</span>
+                    <span class="rc-btn">코미디</span>
+                    <span class="rc-btn">로맨스</span>
+                    <span class="rc-btn">어드벤쳐</span>
+                    <span class="rc-btn">스릴러</span>
+                </div>
+            </div>
+            <div class="recent-bottom">
+
+            </div>
+        </div>
+        <div class="last-box">
+
+        </div>
+    </div>
+
+    
+
+    <!-- ----------search 엔진----------- -->
+    <script>
+
+        let v_searchBar = document.querySelector('#searchBar')
+        let v_searchBtn = document.querySelector('#searchBtn')
+
+        v_searchBtn.addEventListener('click', () => {
+            if (v_searchBar.value.length > 0) {
+                location.href = 'http://127.0.0.1:5500/search-page.html' + '?query=' + v_searchBar.value;
+            }
+        })
+        v_searchBar.addEventListener('keyup', () => {
+            if (event.keyCode == 13) {
+                if (v_searchBar.value.length > 0) {
+                    location.href = 'http://127.0.0.1:5500/search-page.html' + '?query=' + v_searchBar.value;
+                }
+            }
+        })
+    </script>
+    <!-- ------------------------------- -->
+    <script>
+        let pageNo = 1;
+        let genre = 28; // 초기 액션 장르 번호
+        let v_todayBtn = document.getElementById('todayBtn');
+        let v_weekBtn = document.getElementById('weekBtn');
+
+        // ====================== 인기영화 오늘,이번주 버튼 ========================
+        // 오늘 버튼
+        document.getElementById('todayBtn').addEventListener('click', () => {
+
+            v_weekBtn.style.backgroundColor = 'white';
+            v_weekBtn.style.color = 'black';
+            v_todayBtn.style.backgroundColor = '#00223B';
+            v_todayBtn.style.color = '#15CABC';
+            f_todayPopData();
+        })
+        // 이번주 버튼
+        document.getElementById('weekBtn').addEventListener('click', () => {
+            v_todayBtn.style.backgroundColor = 'white';
+            v_todayBtn.style.color = 'black';
+            v_weekBtn.style.backgroundColor = '#00223B';
+            v_weekBtn.style.color = '#15CABC';
+            f_weekPopData();
+        })
+        // ========================================================
+
+
+        // ====================== 장르 버튼 ========================
+        let v_rcArray = document.getElementsByClassName('rc-btn');
+        v_rcArray[0].style.backgroundColor = "#A5F7C8"
+        v_rcArray[0].style.color = "black"
+
+        // 장르버튼 색깔 배경 설정
+        for (let i = 0; i < v_rcArray.length; i++) {
+            v_rcArray[i].addEventListener('click', () => {
+                for (let j = 0; j < v_rcArray.length; j++) {
+                    if (j == i) {
+                        v_rcArray[j].style.backgroundColor = "#A5F7C8"
+                        v_rcArray[j].style.color = "black"
+                    } else {
+                        v_rcArray[j].style.backgroundColor = "#362134"
+                        v_rcArray[j].style.color = "white"
+                    }
+                }
+            })
+        }
+
+        // <!-- 액션 28, 코미디 35, 로맨스 10749, 어드밴쳐 12, 스릴러 53 -->
+        // 장르버튼 => 목록 변경
+
+        let v_array = [28, 35, 10749, 12, 53]
+        for (let i = 0; i < v_array.length; i++) {
+
+            document.getElementsByClassName('rc-btn')[i].addEventListener('click', () => {
+                document.querySelector('.recent-bottom').innerHTML
+                f_videoPop(v_array[i])
+                genre = v_array[i]
+            })
+        }
+        // ==========================================================
+
+        let id_array = [];
+
+
+        f_todayPopData(); // 처음화면 오늘 인기순 나타나게
+        f_videoPop(genre); // 처음화면 액션장르로 나타나게
+
+
+
+
+    </script>
+    <script src="./resources/js/navScript.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAd8DkrEcyReCItfy4z5LZpUrB3p0wwK40",
+            authDomain: "tmdb2-b5243.firebaseapp.com",
+            projectId: "tmdb2-b5243",
+            storageBucket: "tmdb2-b5243.appspot.com",
+            messagingSenderId: "342562486139",
+            appId: "1:342562486139:web:a8eb35bbdea075260befde",
+            measurementId: "G-HF7WXL04JR"
+        };
+
+
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+
+<body>
+
+
+
+    <script>
+        const db = firebase.firestore();
+
+        let p_num = 1
+        function f_firebase(p_num) {
+            let v_url = 'https://api.themoviedb.org/3/person/popular?language=ko-KR&page='
+            v_url += p_num;
+
+            const settings = {
+                async: true,
+                crossDomain: true,
+                url: v_url,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNDQ2ZmNiZjNhYjhjNmFkMzcyNWE0NmRiOGFhYjg2OCIsIm5iZiI6MTcyNDAzOTAxNC4wNDg3MDQsInN1YiI6IjY2YzJiNzUxYTk5MWIxZGE3NWRhMGVkYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VRpFNmnB0zQEoJi4R5E_iDXZcWd53wwyDAHqvtbd5i4'
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                if (response['results'].length > 0) {
+                    for (let i = 0; i < response['results'].length; i++) {
+                        let v_pJson = {}
+                        if (response['results'][i]['known_for_department'] == 'Acting') {
+
+                            v_pJson['name'] = response['results'][i]['name']
+                            if (response['results'][i]['gender'] == 1) {
+                                v_pJson['gender'] = '여성'
+                            } else {
+                                v_pJson['gender'] = '남성'
+                            }
+                            v_pJson['profile_path'] = response['results'][i]['profile_path']
+                            db.collection("personDB").doc("id:" + response['results'][i]['id']).set(v_pJson)
+                                .then(() => {
+                                    console.log("Document successfully written!");
+                                })
+                                .catch((error) => {
+                                    console.error("Error writing document: ", error);
+                                });
+
+                            f_firebasePersonCredit(response['results'][i]['id']);
+                            f_birth(response['results'][i]['id']);
+                            f_exID(response['results'][i]['id']);
+                        }
+                    }
+                    p_num += 1;
+                    if (p_num <= 500) {
+                        f_firebase(p_num)
+                    } else {
+                        return;
+                    }
+                } else {
+                    return;
+                }
+
+            });
+        }
+        // f_firebase(p_num)
+        // --- 저장 완료 ---
+
+
+        // firebase 읽기
+        // let docRef = db.collection("personDB").doc('id:' + 64)
+
+        // docRef.get().then((result) => {
+
+        //     let v_data = result.data();
+        //     console.log(result.data());
+
+        //     if (!v_data) {
+        //         alert('데이터 없음')
+        //     }
+
+
+        // }).catch((error) => {
+        //     console.log(error);
+        // });
+
+        // 'https://api.themoviedb.org/3/person/' + p_idNum + '?language=ko-KR'  // persondetail
+
+        function f_firebasePersonCredit(p_idNum) {
+            let v_url = 'https://api.themoviedb.org/3/person/' + p_idNum + '/movie_credits?language=ko-KR'
+            const settings = {
+                async: true,
+                crossDomain: true,
+                url: v_url,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNDQ2ZmNiZjNhYjhjNmFkMzcyNWE0NmRiOGFhYjg2OCIsIm5iZiI6MTcyNDAzOTAxNC4wNDg3MDQsInN1YiI6IjY2YzJiNzUxYTk5MWIxZGE3NWRhMGVkYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VRpFNmnB0zQEoJi4R5E_iDXZcWd53wwyDAHqvtbd5i4'
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                let v_pJson = {}
+                v_pJson['credit_id'] = [];
+                v_pJson['credit_title'] = [];
+                v_pJson['credit_poster_path'] = [];
+                if (response['cast'].length >= 10) {
+                    for (let i = 0; i < 10; i++) {
+                        v_pJson['credit_id'][i] = response['cast'][i]['id'];
+                        v_pJson['credit_title'][i] = response['cast'][i]['title'];
+                        v_pJson['credit_poster_path'][i] = response['cast'][i]['poster_path'];
+                        db.collection("personDB").doc("id:" + p_idNum).update(v_pJson)
+                            .then(() => {
+                                console.log("Document successfully written!");
+                            })
+                            .catch((error) => {
+                                console.error("Error writing document: ", error);
+                            });
+                    }
+                } else {
+                    for (let i = 0; i < response['cast'].length; i++) {
+                        v_pJson['credit_id'][i] = response['cast'][i]['id'];
+                        v_pJson['credit_title'][i] = response['cast'][i]['title'];
+                        v_pJson['credit_poster_path'][i] = response['cast'][i]['poster_path'];
+                        db.collection("personDB").doc("id:" + p_idNum).update(v_pJson)
+                            .then(() => {
+                                console.log("Document successfully written!");
+                            })
+                            .catch((error) => {
+                                console.error("Error writing document: ", error);
+                            });
+                    }
+                }
+            });
+        }
+
+
+        function f_exID(p_idNum) {
+            let v_url = 'https://api.themoviedb.org/3/person/' + p_idNum + '/external_ids'
+            const settings = {
+                async: true,
+                crossDomain: true,
+                url: v_url,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNDQ2ZmNiZjNhYjhjNmFkMzcyNWE0NmRiOGFhYjg2OCIsIm5iZiI6MTcyNDAzOTAxNC4wNDg3MDQsInN1YiI6IjY2YzJiNzUxYTk5MWIxZGE3NWRhMGVkYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VRpFNmnB0zQEoJi4R5E_iDXZcWd53wwyDAHqvtbd5i4'
+                }
+            };
+            $.ajax(settings).done(function (response) {
+                let v_pJson = {}
+                v_pJson['instagram_id'] = 'https://www.instagram.com/' + response['instagram_id']
+                v_pJson['twitter_id'] = 'https://x.com/' + response['twitter_id']
+                db.collection('personDB').doc("id:" + p_idNum).update(v_pJson)
+                    .then(() => {
+                        console.log("Document successfully written!");
+                    })
+                    .catch((error) => {
+                        console.error("Error writing document: ", error);
+                    });
+            })
+
+        }
+
+        function f_birth(p_idNum) {
+            let v_url = 'https://api.themoviedb.org/3/person/' + p_idNum
+            const settings = {
+                async: true,
+                crossDomain: true,
+                url: v_url,
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNDQ2ZmNiZjNhYjhjNmFkMzcyNWE0NmRiOGFhYjg2OCIsIm5iZiI6MTcyNDAzOTAxNC4wNDg3MDQsInN1YiI6IjY2YzJiNzUxYTk5MWIxZGE3NWRhMGVkYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VRpFNmnB0zQEoJi4R5E_iDXZcWd53wwyDAHqvtbd5i4'
+                }
+            };
+            $.ajax(settings).done(function (response) {
+                let v_pJson = {}
+                v_pJson['biography'] = response['biography']
+                v_pJson['birthday'] = response['birthday']
+                v_pJson['person_id'] = response['id']
+                db.collection('personDB').doc("id:" + p_idNum).update(v_pJson)
+                    .then(() => {
+                        console.log("Document successfully written!");
+                    })
+                    .catch((error) => {
+                        console.error("Error writing document: ", error);
+                    });
+            })
+        }
+        
+    </script>
+</body>
+
+</html>

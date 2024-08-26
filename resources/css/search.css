@@ -1,0 +1,29 @@
+.search-cont {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.724);
+}
+
+.search-box {
+    width: 1400px;
+    height: 100%;
+    margin: auto;
+    display: flex;
+}
+
+.icon-box {
+    height: 100%;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+#search {
+    height: 100%;
+    width: 1350px;
+    font-size: 20px;
+    border: none;
+}

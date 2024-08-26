@@ -1,0 +1,97 @@
+.navigation {
+    background-color: #032541;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.nav{
+    width: 1400px;
+    height: 60px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.nav-left{
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+#navLogo{
+    width: 25%;
+    height: 90%;
+    cursor: pointer;
+}
+
+.nav-movie{
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+}
+
+.nav-person{
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+}
+
+.nav-right{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+
+.nav-button{
+    height: 100%;
+    width: 10%;
+    margin-right: 12px;
+    cursor: pointer;
+    background-color: #032541;
+    border: none;
+}
+
+#bt1{
+    color: white;
+    width: 50%;
+    height: 50%;
+}
+
+#bt2{
+    color: white;
+    width: 50%;
+    height: 50%;
+}
+
+#bt3{
+    color: white;
+    width: 50%;
+    height: 50%;
+}
+
+#bt4{
+    color: white;
+    width: 50%;
+    height: 50%;
+}
+
+#bt5{
+    color: white;
+    width: 50%;
+    height: 50%;
+}
