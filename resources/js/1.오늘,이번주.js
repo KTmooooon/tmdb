@@ -35,7 +35,7 @@ function f_todayPopData() {
         localStorage.setItem('movieId', "[" + id_array + "]")
         for (let i = 0; i < 10; i++) {
             document.getElementsByClassName('tb-movie')[i].addEventListener('click', () => {
-                location.href = 'http://127.0.0.1:5500/movie-detail.html' + '?id=' + response['results'][i]['id'];
+                location.href = 'https://ktmooooon.github.io/tmdb/movie-detail.html' + '?id=' + response['results'][i]['id'];
             })
         }
         
