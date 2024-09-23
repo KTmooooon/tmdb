@@ -246,11 +246,11 @@
                 })
                 for (let i = 20 * (pageNo - 2); i < 20 * (pageNo - 2) + response['results'].length; i++) { // 각각의 response에 대해 0부터 시작하는 i 값이 필요
                     document.getElementsByClassName('movie-img')[i].addEventListener('click', () => {
-                        location.href = 'http://127.0.0.1:5500/movie-detail.html' + '?id=' + response['results'][i+40-20*pageNo]['id']
+                        location.href = 'https://ktmooooon.github.io/tmdb/movie-detail.html' + '?id=' + response['results'][i+40-20*pageNo]['id']
                         console.log('a')
                     })
                     document.getElementsByClassName('movie-title')[i].addEventListener('click', () => {
-                        location.href = 'http://127.0.0.1:5500/movie-detail.html' + '?id=' + response['results'][i+40-20*pageNo]['id']
+                        location.href = 'https://ktmooooon.github.io/tmdb/movie-detail.html' + '?id=' + response['results'][i+40-20*pageNo]['id']
                     })
                 }
             });
