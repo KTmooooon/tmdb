@@ -1,11 +1,11 @@
 document.getElementById('navLogo').addEventListener('click', () => {
-    location.href = 'http://127.0.0.1:5500/index.html'
+    location.href = 'https://ktmooooon.github.io/tmdb/index.html'
 })
 
 document.getElementsByClassName('nav-person')[0].addEventListener('click', () => {
-    location.href = 'http://127.0.0.1:5500/personDB.html'
+    location.href = 'https://ktmooooon.github.io/tmdb/personDB.html'
 })
 
 document.getElementsByClassName('nav-movie')[0].addEventListener('click', () => {
-    location.href = 'http://127.0.0.1:5500/movieDB.html'
+    location.href = 'https://ktmooooon.github.io/tmdb/movieDB.html'
 })
