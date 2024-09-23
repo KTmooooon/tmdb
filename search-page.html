@@ -467,7 +467,7 @@
                         }
                         for (let i = 20 * (pageNo - 1); i < 20 * pageNo; i++) {
                             document.getElementsByClassName('item-img')[i].addEventListener('click', () => {
-                                location.href = 'http://127.0.0.1:5500/movie-detail.html' + '?id=' + response['results'][i + 40 - (20 * pageNo)]['id'];
+                                location.href = 'https://ktmooooon.github.io/tmdb/movie-detail.html' + '?id=' + response['results'][i + 40 - (20 * pageNo)]['id'];
                             })
                         }
 
@@ -488,7 +488,7 @@
                         // 함수가 돌아가는 시점 pageNo 랑 사용자가 이미지를 누를때 pageNo가 다름
                         for (let i = 20 * (pageNo - 1); i < 20 * (pageNo - 1) + response['results'].length; i++) {
                             document.getElementsByClassName('item-img')[i].addEventListener('click', () => {
-                                location.href = 'http://127.0.0.1:5500/movie-detail.html' + '?id=' + response['results'][i + 40 - (20 * pageNo)]['id'];
+                                location.href = 'https://ktmooooon.github.io/tmdb/movie-detail.html' + '?id=' + response['results'][i + 40 - (20 * pageNo)]['id'];
                             })
                         }
 
@@ -659,7 +659,7 @@
         v_search.addEventListener('keyup', () => {
             if (event.keyCode == 13) {
                 if (v_search.value.length) {
-                    location.href = 'http://127.0.0.1:5500/search-page.html' + '?query=' + v_search.value;
+                    location.href = 'https://ktmooooon.github.io/tmdb/search-page.html' + '?query=' + v_search.value;
                 }
             }
         })
